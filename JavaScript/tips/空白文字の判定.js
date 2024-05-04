@@ -14,7 +14,6 @@ console.log("isBlank ", isBlank("   ")); // true
 console.log("isBlank ", isBlank("text")); // false
 
 // 正規表現の使用
-// ===============================================================
 function isBlank2(str) {
   // `\S`は非空白文字にマッチする
   // test()メソッドは正規表現を使用して指定された文字列に対してパターンマッチングを行うメソッドで、真偽値を返す
