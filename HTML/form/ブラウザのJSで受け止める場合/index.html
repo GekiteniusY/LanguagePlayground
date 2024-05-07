@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Example</title>
+</head>
+<body>
+
+<h2>Submit Form</h2>
+
+<!-- HTML側ではaction属性を持たない -->
+<form id="myForm">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required><br><br>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required><br><br>
+
+    <label for="message">Message:</label><br>
+    <textarea id="message" name="message" rows="4" cols="50" required></textarea><br><br>
+
+    <input type="submit" value="Submit">
+</form>
+
+<!-- クライアントのJavaScript側で送信責務を追う -->
+<script>
+document.getElementById("myForm").addEventListener("submit", function(event) {
+    // フォームのデフォルトの送信を防ぐ
+    // これを付けることで、ページの再読み込み処理を防ぐことができる
+    event.preventDefault(); 
+
+    // フォームデータを取得
+    const formData = new FormData(event.target);
+
+    // フォームデータから必要な情報を抽出
+    const name = formData.get("name");
+    const email = formData.get("email");
+    const message = formData.get("message");
+
+    const API_URL = 'example.com/path'
+
+    // バックエンドのAPIにPOSTリクエストを送信
+    fetch(API_URL, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            name: name,
+            email: email,
+            message: message
+        })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log("Success:", data);
+        // 成功時の処理を追加
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        // エラー時の処理を追加
+    });
+});
+</script>
+
+</body>
+</html>

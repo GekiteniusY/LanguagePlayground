@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Example</title>
+</head>
+<body>
+
+<h2>Submit Form</h2>
+
+<!-- action要素で送信先URL、methodでHTTPのメソッドを指定している -->
+<!-- この方法ではform要素のデフォルトの挙動である、ページの再読み込みが発生してしまう -->
+<form action="/submit_form.php" method="post">
+    <!-- Name: の入力フォーム-->
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required><br><br>
+
+    <!-- Email: の入力フォーム -->
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required><br><br>
+
+    <!-- Message: の入力フォーム -->
+    <label for="message">Message:</label><br>
+    <!-- 4行、50文字の大きさ -->
+    <textarea id="message" name="message" rows="4" cols="50" required></textarea><br><br>
+
+    <!-- submitボタン -->
+    <input type="submit" value="Submit">
+</form>
+
+</body>
+</html>
