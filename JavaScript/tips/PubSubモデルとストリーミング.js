@@ -52,6 +52,7 @@ const dataChunks = ["Hello, ", "this ", "is ", "a ", "streaming ", "test!"];
 stream.sendData(dataChunks);
 
 // Node.jsのEventEmitterを利用したストリームのPub/Subモデル
+// https://hireroo.io/journal/tech/implementing-event-emitter-with-typescript-for-beginner
 // ===============================================================
 class EventEmitter {
   constructor() {

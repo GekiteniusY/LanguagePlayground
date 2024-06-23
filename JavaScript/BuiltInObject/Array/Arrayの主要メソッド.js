@@ -256,12 +256,108 @@ console.log(arrayPush); // Array ["pigs", "goats", "sheep", "cows", "chickens", 
 // reduce(callbackFn)
 // reduce(callbackFn, initialValue)
 // ===============================================================
-// 保守性の観点から実用的でないため割愛
+// 保守性の観点から実用的でない、forなど他のメソッドを使うことを検討すること
+
+
+// 0 + 1 + 2 + 3 + 4
+const initialValue = 0;
+const sumWithInitial = array1.reduce(
+  (accumulator, currentValue) => {
+	  console.log('=======')
+    console.log('accumulator: ', accumulator)
+    console.log('currentValue: ', currentValue)
+    console.log('=======\n')
+    return accumulator + currentValue;
+  },
+  initialValue,
+);
+
+const sumWithInitial2 = array1.reduce(
+  (accumulator, currentValue, i, k, j) => {
+    console.log('index is : ', i) // index
+    console.log('Array is : ', k) // array1
+    // console.log(j) // undefined
+    return accumulator + currentValue;
+  },
+  initialValue,
+);
+
+console.log(sumWithInitial);
+// Expected output: 10
+
+
+// > "======="
+// > "accumulator: " 0
+// > "currentValue: " 1
+// > "=======
+// "
+// > "======="
+// > "accumulator: " 1
+// > "currentValue: " 2
+// > "=======
+// "
+// > "======="
+// > "accumulator: " 3
+// > "currentValue: " 3
+// > "=======
+// "
+// > "======="
+// > "accumulator: " 6
+// > "currentValue: " 4
+// > "=======
+// "
+// > 10
+
+const pipe =
+  (...functions) =>
+  (initialValue) =>
+    functions.reduce((acc, fn) => fn(acc), initialValue);
+
+const pipeCustom = 
+  // 複数の関数を引数に取る
+  (...functions) => {
+	console.log('functions.length is ', functions.length)
+    
+    // 更に初期値を引数に取る
+    return (initialValue) => {
+		console.log('initialValue: ', initialValue)
+      
+      // reduce()の初期値としてinitialValueを利用
+      // reduce()を利用して、...functionsで受け取った関数の配列に逐次的にアクセス
+    	return functions.reduce((acc, fn) => {
+    				console.log('acc: ', acc);
+    				return fn(acc);
+      			}, initialValue);
+    };
+  };
+
+
+// Building blocks to use for composition
+const double = (x) => {
+  console.log('double() called')
+  return 2 * x;
+};
+const triple = (x) => {
+  console.log('triple() called')
+  return 3 * x;
+};
+const quadruple = (x) => {
+  console.log('quadruple() called')
+  return 4 * x;
+};
+
+
+// console.log(multiply24(10))
+console.log(pipeCustom(double, triple, quadruple)(10))
+
+
 
 // reduceRight()
 // reduce()の逆
 // ===============================================================
 // 保守性の観点から実用的でないため割愛
+
+
 
 // reverse()
 // ===============================================================
